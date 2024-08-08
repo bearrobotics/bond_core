@@ -50,13 +50,11 @@ cc_library(
     includes = [
         "bondcpp/include"
     ],
-    linkopts = [
-        "-luuid"
-    ],
     deps = [
         "@ros_comm//:roscpp_lib",
         ":cc_bond_interface",
         ":scmlib",
+        "@boost//:uuid",
     ],
     visibility = [
         "//visibility:public"

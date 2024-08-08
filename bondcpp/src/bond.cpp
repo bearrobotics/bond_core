@@ -36,7 +36,9 @@
 #ifdef _WIN32
 #include <Rpc.h>
 #else
-#include <uuid/uuid.h>
+#include <boost/uuid/uuid.hpp>           
+#include <boost/uuid/uuid_generators.hpp> 
+#include <boost/uuid/uuid_io.hpp>         
 #endif
 
 #include <algorithm>
@@ -56,11 +58,8 @@ static std::string makeUUID()
   RpcStringFreeA(&str);
   return return_string;
 #else
-  uuid_t uuid;
-  uuid_generate_random(uuid);
-  char uuid_str[40];
-  uuid_unparse(uuid, uuid_str);
-  return std::string(uuid_str);
+  boost::uuids::uuid uuid_str = boost::uuids::random_generator()();
+  return  boost::uuids::to_string(uuid_str);
 #endif
 }
 
